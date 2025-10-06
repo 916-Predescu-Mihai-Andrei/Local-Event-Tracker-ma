@@ -7,14 +7,13 @@ This is a simple mobile app that lets users keep track of local events happening
 ##  What the App Does (CRUD)  
 
 - **Create:** Users can add new events by filling out a form with a title, date & time, location, category, and description.
-![Add Event](assets/images/Add_screen.png)
-- **Read:** All upcoming events are displayed on the home screen in a card/list format. Users can tap an event to see more details.
-![View Events](assets/images/View_screen.png)
-- **Update:** Users who created an event can edit its details through an “Edit” button in the event detail screen.
-![Edit Event](assets/images/Edit_screen.png)
-- **Delete:** Users can delete their own events either from the event detail view or directly from the event list.  
-![Delete Event](assets/images/Delete_screen.png)
----
+<img src="assets/images/Delete_screen.png" alt="Delete Event" width="250" height="350"/>-
+**Read:** All upcoming events are displayed on the home screen in a card/list format. Users can tap an event to see more details.
+<img src="assets/images/View_screen.png" alt="Delete Event" width="250" height="350"/>-
+**Update:** Users who created an event can edit its details through an “Edit” button in the event detail screen.
+<img src="assets/images/Edit_screen.png" alt="Delete Event" width="250" height="350"/>-
+**Delete:** Users can delete their own events either from the event detail view or directly from the event list.  
+<img src="assets/images/Delete_screen.png" alt="Delete Event" width="250" height="350"/>---
 
 ##  Features  
 
