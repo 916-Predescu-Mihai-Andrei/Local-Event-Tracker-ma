@@ -2,31 +2,36 @@ package com.example.eventtracker.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.eventtracker.data.EventRepository
 import com.example.eventtracker.data.Event
-
-
 
 class EventViewModel : ViewModel() {
 
-    // The ViewModel now gets its data from the Repository.
-    val events = EventRepository.events
+    // Initialize with an empty list to avoid nulls
+    val events = MutableLiveData<MutableList<Event>>(mutableListOf())
 
-    // These functions now just call the Repository's functions.
     fun addEvent(event: Event) {
-        EventRepository.addEvent(event)
+        events.value?.add(event)
+        // You must re-assign the value to trigger the LiveData observer
+        events.value = events.value
     }
 
     fun updateEvent(updatedEvent: Event) {
-        EventRepository.updateEvent(updatedEvent)
+        val list = events.value
+        list?.let { eventList ->
+            val index = eventList.indexOfFirst { it.id == updatedEvent.id }
+            if (index != -1) {
+                eventList[index] = updatedEvent
+                events.value = eventList
+            }
+        }
     }
 
     fun deleteEvent(event: Event) {
-        EventRepository.deleteEvent(event)
+        events.value?.remove(event)
+        events.value = events.value
     }
 
-    // Add a function to get a single event
     fun getEventById(id: Int): Event? {
-        return EventRepository.findEventById(id)
+        return events.value?.find { it.id == id }
     }
 }

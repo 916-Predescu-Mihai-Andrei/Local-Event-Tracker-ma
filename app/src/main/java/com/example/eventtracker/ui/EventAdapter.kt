@@ -7,15 +7,11 @@ import com.example.eventtracker.data.Event
 import com.example.eventtracker.databinding.ItemEventBinding
 
 class EventAdapter(
-    private val onClick: (Event) -> Unit,
-    private val onEdit: (Event) -> Unit,
-    private val onDelete: (Event) -> Unit
+    private var events: MutableList<Event>,
+    private val onItemClick: (Event) -> Unit // Lambda for handling clicks
 ) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
 
-    private var events = listOf<Event>()
-
-    inner class EventViewHolder(val binding: ItemEventBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    inner class EventViewHolder(val binding: ItemEventBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         val binding = ItemEventBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -27,15 +23,20 @@ class EventAdapter(
         holder.binding.tvTitle.text = event.title
         holder.binding.tvDate.text = event.date
 
-        holder.binding.root.setOnClickListener { onClick(event) }
-        holder.binding.btnEdit.setOnClickListener { onEdit(event) }
-        holder.binding.btnDelete.setOnClickListener { onDelete(event) }
+        // Set the click listener for the whole item view
+        holder.itemView.setOnClickListener {
+            onItemClick(event)
+        }
     }
 
-    override fun getItemCount(): Int = events.size
+    override fun getItemCount(): Int {
+        return events.size
+    }
 
-    fun submitList(list: List<Event>) {
-        events = list
-        notifyDataSetChanged()
+    // Add this function to update the list and refresh the RecyclerView
+    fun updateEvents(newEvents: List<Event>) {
+        events.clear()
+        events.addAll(newEvents)
+        notifyDataSetChanged() // This tells the adapter to redraw the list
     }
 }

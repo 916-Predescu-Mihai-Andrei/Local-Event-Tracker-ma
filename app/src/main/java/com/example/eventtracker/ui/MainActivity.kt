@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.eventtracker.R
 import com.example.eventtracker.data.Event
 import com.example.eventtracker.databinding.ActivityMainBinding
 import com.example.eventtracker.viewmodel.EventViewModel
@@ -13,36 +13,46 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val viewModel: EventViewModel by viewModels()
-    private lateinit var adapter: EventAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        adapter = EventAdapter(
-            onClick = { event ->
-                val intent = Intent(this, EventDetailActivity::class.java)
-                intent.putExtra("eventId", event.id)
-                startActivity(intent)
-            },
-            onEdit = { event ->
-                val intent = Intent(this, EditEventActivity::class.java)
-                intent.putExtra("eventId", event.id)
-                startActivity(intent)
-            },
-            onDelete = { event ->
-                viewModel.deleteEvent(event)
+        // 1. Create the adapter with an empty list first.
+        val adapter = EventAdapter(mutableListOf()) { event ->
+            // This is the click listener for an event item
+            val intent = Intent(this, EditEventActivity::class.java).apply {
+                putExtra("eventId", event.id)
             }
-        )
-
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+            startActivity(intent)
+        }
         binding.recyclerView.adapter = adapter
 
-        viewModel.events.observe(this) { adapter.submitList(it.toList()) }
+        // 2. Observe the LiveData for changes
+        viewModel.events.observe(this) { eventList ->
+            // When the event list changes, update the adapter's data
+            adapter.updateEvents(eventList)
+        }
 
         binding.fabAdd.setOnClickListener {
-            startActivity(Intent(this, AddEventActivity::class.java))
+            // For testing, let's add a new event
+            val newId = viewModel.events.value?.size ?: 0
+            val newEvent = Event(
+                id = newId + 1,
+                title = "New Event ${newId + 1}",
+                date = "2025-01-01",
+                location = "Someplace",
+                description = "Details about the new event."
+            )
+            viewModel.addEvent(newEvent)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Refresh the adapter when returning to the activity
+        // This ensures updates from EditEventActivity are shown
+        binding.recyclerView.adapter?.notifyDataSetChanged()
     }
 }
