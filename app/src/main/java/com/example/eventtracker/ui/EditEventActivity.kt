@@ -3,7 +3,6 @@ package com.example.eventtracker.ui
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.eventtracker.data.Event
 import com.example.eventtracker.databinding.ActivityEditEventBinding
 import com.example.eventtracker.viewmodel.EventViewModel
 

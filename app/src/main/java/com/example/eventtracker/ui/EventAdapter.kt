@@ -8,7 +8,7 @@ import com.example.eventtracker.databinding.ItemEventBinding
 
 class EventAdapter(
     private var events: MutableList<Event>,
-    private val onItemClick: (Event) -> Unit // Lambda for handling clicks
+    private val onItemClick: (Event) -> Unit
 ) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
 
     inner class EventViewHolder(val binding: ItemEventBinding) : RecyclerView.ViewHolder(binding.root)
@@ -23,7 +23,7 @@ class EventAdapter(
         holder.binding.tvTitle.text = event.title
         holder.binding.tvDate.text = event.date
 
-        // Set the click listener for the whole item view
+        // MODIFICATION 2: Use the click listener
         holder.itemView.setOnClickListener {
             onItemClick(event)
         }
@@ -33,10 +33,9 @@ class EventAdapter(
         return events.size
     }
 
-    // Add this function to update the list and refresh the RecyclerView
     fun updateEvents(newEvents: List<Event>) {
         events.clear()
         events.addAll(newEvents)
-        notifyDataSetChanged() // This tells the adapter to redraw the list
+        notifyDataSetChanged()
     }
 }
