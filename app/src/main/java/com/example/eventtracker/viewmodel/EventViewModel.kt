@@ -5,7 +5,6 @@ import com.example.eventtracker.data.Event
 import com.example.eventtracker.data.EventRepository
 
 class EventViewModel : ViewModel() {
-
     val events = EventRepository.events
 
     fun addEvent(event: Event) {
@@ -14,6 +13,10 @@ class EventViewModel : ViewModel() {
 
     fun updateEvent(updatedEvent: Event) {
         EventRepository.updateEvent(updatedEvent)
+    }
+
+    fun deleteEvent(event: Event) {
+        EventRepository.deleteEvent(event)
     }
 
     fun getEventById(id: Int): Event? {

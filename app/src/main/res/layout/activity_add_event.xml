@@ -4,16 +4,40 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <EditText android:id="@+id/etTitle" android:hint="Event Title" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <EditText android:id="@+id/etDate" android:hint="Date" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <EditText android:id="@+id/etLocation" android:hint="Location" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <EditText android:id="@+id/etDescription" android:hint="Description" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/etTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Event Title" />
 
-        <Button android:id="@+id/btnSave" android:text="Save Event" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/etDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Date" />
+
+        <EditText
+            android:id="@+id/etLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Location" />
+
+        <EditText
+            android:id="@+id/etDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Save Event" />
     </LinearLayout>
 </ScrollView>

@@ -22,8 +22,6 @@ class EventAdapter(
         val event = events[position]
         holder.binding.tvTitle.text = event.title
         holder.binding.tvDate.text = event.date
-
-        // MODIFICATION 2: Use the click listener
         holder.itemView.setOnClickListener {
             onItemClick(event)
         }
